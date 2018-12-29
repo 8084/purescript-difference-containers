@@ -1,0 +1,22 @@
+{
+  "name": "purescript-difference-containers",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-prelude": "^4.1.0",
+    "purescript-foldable-traversable": "^4.1.1",
+    "purescript-unfoldable": "^4.0.0"
+  },
+  "devDependencies": {
+    "purescript-console": "^4.2.0",
+    "purescript-psci-support": "^4.0.0",
+    "purescript-benchotron": "^7.0.0",
+    "purescript-assert": "^4.0.0",
+    "purescript-arrays": "^5.2.0",
+    "purescript-quickcheck": "^5.0.0"
+  }
+}

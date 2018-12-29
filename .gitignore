@@ -1,0 +1,8 @@
+.spago
+.psc-package
+bower_components
+node_modules
+.psci-modules
+.purs-repl
+output
+tmp
