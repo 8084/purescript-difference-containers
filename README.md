@@ -31,3 +31,8 @@ This observation can be utilized for performance optimisation. It is possible to
 - See also: [Difference lists in Haskell](http://hackage.haskell.org/package/dlist).
 
 - There may exist useful applications of difference containers other than amortization of linked list's `append`. They are still to be found.
+
+
+# Documentation
+
+Module documentation is published on [Pursuit](https://pursuit.purescript.org/packages/purescript-difference-containers/).
