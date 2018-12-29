@@ -14,5 +14,6 @@
     "microtime": "^2.1.8",
     "pulp": "^12.3.0",
     "purescript-spago": "^0.6.0"
-  }
+  },
+  "license": "PDDL-1.0"
 }
