@@ -1,5 +1,7 @@
 # purescript-difference-containers
 
+[![Build status](https://travis-ci.org/8084/purescript-difference-containers.svg?branch=master)](https://travis-ci.org/8084/purescript-difference-containers)
+
 Difference containers are a generalization of [difference lists](https://wiki.haskell.org/Difference_list) for any `Monoid`.
 
 # Explanation
