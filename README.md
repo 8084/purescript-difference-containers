@@ -6,7 +6,7 @@ Difference containers are a generalization of [difference lists](https://wiki.ha
 
 # Explanation
 
-Suppose we have some container type `cnt :: * -> *` with associative operation `append :: ∀ a. cnt a -> cnt a -> cnt a`, the time complexity of which is dependent on the first argument's size and is constant for any size of the second.
+Suppose there is a container type `cnt :: * -> *` with associative operation `append :: ∀ a. cnt a -> cnt a -> cnt a`, the time complexity of which is dependent on the first argument's size and is constant for any size of the second.
 
 Then, a structure of form `append (append a b) c` is equivalent to the one of form `append a (append b c)`, but the latter requires less computations, because the size of `a` plus the size of `b` is generally less than the size of `a` plus the size of `append a b`.
 
@@ -14,11 +14,11 @@ This observation can be utilized for performance optimisation. It is possible to
 
 # About this implementation
 
-- Instead of providing two types for strict and lazy difference lists, this library defines the `Difference` type, which is parametrised by the inner container type.
+- Instead of providing two types for strict and lazy difference lists, this library defines the `Difference` type, which is parametrised by the inner container type. `Difference List` is thus equivalent to [`DList` in Haskell](http://hackage.haskell.org/package/dlist).
 
-- Since in purescript we don't have the luxury of stack-safe function composition, difference container is a newtype wrapper over an `Array` of partially applied `append` functions, which can be stack-safely `foldr`'ed.
+- For convenience, instances of `Functor`, `Apply`, `Bind`, `Monad`, `Foldable`, `Unfoldable` and `Traversable` type classes are provided for `Difference cnt` type if `cnt` is also an instance of the corresponding type class. However, their methods convert `Difference cnt` to `cnt` under the hood, so the benefits of employing this library may be defeated by their use.
 
-- For convenience, instances of `Functor`, `Apply`, `Bind` and `Monad` type classes are provided for `Difference cnt` type if `cnt` is also an instance of the corresponding type class. However, their methods flatten the internal `Array`, so the benefits of employing this library may be defeated by their use.
+- To avoid stack safety issues, [purescript-stacksafe-function](https://github.com/safareli/purescript-stacksafe-function/) is used. It allows accumulating large number of functions using `compose` without hitting the stack size limit.
 
 # Benchmarks
 
@@ -30,10 +30,7 @@ This observation can be utilized for performance optimisation. It is possible to
 
 # Notes
 
-- See also: [Difference lists in Haskell](http://hackage.haskell.org/package/dlist).
-
 - There may exist useful applications of difference containers other than amortization of linked list's `append`. They are still to be found.
-
 
 # Documentation
 

@@ -11,7 +11,8 @@
       "prelude",
       "psci-support",
       "quickcheck",
-      "unfoldable"
+      "unfoldable",
+      "stacksafe-function"
  ]
 , packages =
     ./packages.dhall

@@ -1,19 +1,21 @@
 {
   "name": "purescript-difference-containers",
-  "version": "0.0.1",
-  "main": "index.js",
   "private": true,
   "scripts": {
     "test": "pulp test",
     "bench": "pulp build -I benchmarks --main BenchMain -O --to output/benchmarks.js && node output/benchmarks.js"
   },
   "author": "klntsky",
-  "license": "ISC",
+  "license": "PDDL-1.0",
   "devDependencies": {
     "benchmark": "^2.1.4",
+    "bower": "^1.8.7",
     "microtime": "^2.1.8",
-    "pulp": "^12.3.0",
+    "pulp": "^12.3.1",
     "purescript-spago": "^0.6.0"
   },
-  "license": "PDDL-1.0"
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {}
 }

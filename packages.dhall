@@ -25,7 +25,16 @@ let additions =
         , "now"
         ]
         "https://github.com/hdgarrood/purescript-benchotron.git"
-        "v7.0.0"
+        "v7.0.0",
+    stacksafe-function =
+      mkPackage
+        [ "prelude"
+        , "newtype"
+        , "assert"
+        , "quickcheck-laws"
+        ]
+        "https://github.com/safareli/purescript-stacksafe-function.git"
+        "v2.0.0"
   }
 
 in  upstream ⫽ overrides ⫽ additions

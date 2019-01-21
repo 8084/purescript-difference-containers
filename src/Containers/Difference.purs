@@ -19,18 +19,16 @@ import Data.Foldable (class Foldable, foldMap, foldl, foldr)
 import Data.Traversable (class Traversable, sequence)
 import Data.List.Lazy as LL
 import Data.List as L
-import Data.Function (apply)
 import Data.NaturalTransformation (type (~>))
+import Data.Monoid.Endo (Endo (..))
+import StackSafe.Function (Func, (#$))
+import Data.Newtype (wrap)
 
 
 -- | `Difference cnt e` is a data structure analogous to difference lists,
 -- | where `cnt` is a container type, e.g. `List` from `Data.List.Lazy`,
 -- | and `e` is an element type.
--- |
--- | ```
--- | newtype Difference cnt e = Difference (Array (cnt e -> cnt e))
--- | ```
-newtype Difference cnt e = Difference (Array (cnt e -> cnt e))
+newtype Difference cnt e = Difference (Endo Func (cnt e))
 
 -- | `Diff` typeclass generalizes difference lists.
 -- |
@@ -47,7 +45,7 @@ instance semigroupDifference :: Diff cnt => Semigroup (Difference cnt e) where
   append (Difference xs) (Difference ys) = Difference (xs <> ys)
 
 instance monoidDifference :: Diff cnt => Monoid (Difference cnt e) where
-  mempty = Difference []
+  mempty = Difference mempty
 
 instance foldableDifference :: Diff cnt => Foldable (Difference cnt) where
   foldr f b = toContainer >>> foldr f b
@@ -65,8 +63,7 @@ instance traversableDifference :: (Diff cnt, Traversable cnt) => Traversable (Di
   sequence = toContainer >>> sequence >>> map fromContainer
 
 instance functorDifference :: (Diff cnt, Functor cnt) => Functor (Difference cnt) where
-  -- We have no option other than to flatten the array.
-  -- The reason is that it isn't possible to map 'Array (cnt a -> cnt a)` to `Array (cnt b -> cnt b)`
+  -- It isn't possible to map 'Endo Function (cnt a)` to `Endo Function (cnt b)`
   map f = toContainer >>> map f >>> fromContainer
 
 instance applyDifference :: (Diff cnt, Monad cnt) => Apply (Difference cnt) where
@@ -105,14 +102,11 @@ fromFoldable' = foldMap singleton
 
 
 fromContainer :: forall cnt. Diff cnt => cnt ~> Difference cnt
-fromContainer l = Difference [dappend l]
+fromContainer l = Difference (Endo (wrap (dappend l)))
 
 
 toContainer :: forall cnt. Diff cnt => Difference cnt ~> cnt
-toContainer = unDiff dempty
-  where
-    unDiff l (Difference []) = l
-    unDiff l (Difference fs) = foldr apply l fs
+toContainer (Difference (Endo f)) = f #$ dempty
 
 
 singleton :: forall cnt a. Diff cnt =>
