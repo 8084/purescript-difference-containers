@@ -100,8 +100,8 @@ main = do
            (foldr (\x y -> x - y) 0 [1, 2, 3])
   assertEq (foldl (\x y -> x - y) 0 $ DC.fromFoldable' [1, 2, 3] :: Difference List Int)
            (foldl (\x y -> x - y) 0 [1, 2, 3])
-  assertEq (foldMap pure $ DC.fromFoldable' [1,2,3,4] :: Difference Array Int)
-           (foldMap pure [1,2,3,4] :: Array Int)
+  assertEq (foldMap pure $ DC.fromFoldable' [1,2,3,4] :: Difference List Int)
+           (foldMap pure [1,2,3,4] :: List Int)
 
   log "checking Monad instance"
   assertEq (bind (DC.fromFoldable' [1, 2, 3] :: Difference List Int) (\x -> pure x <> pure (x * 10)))

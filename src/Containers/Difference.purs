@@ -134,8 +134,3 @@ instance diffList :: Diff L.List where
   dempty = mempty
   dappend = append
   dsingleton = pure
-
-instance diffArray :: Diff Array where
-  dempty = mempty
-  dappend = append
-  dsingleton = pure
