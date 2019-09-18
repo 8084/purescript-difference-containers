@@ -1,6 +1,6 @@
 # purescript-difference-containers
 
-[![Build status](https://travis-ci.org/8084/purescript-difference-containers.svg?branch=master)](https://travis-ci.org/8084/purescript-difference-containers)
+[![Build status](https://travis-ci.org/klntsky/purescript-difference-containers.svg?branch=master)](https://travis-ci.org/klntsky/purescript-difference-containers)
 
 "Difference containers" is a name of this implementation of [difference lists](https://wiki.haskell.org/Difference_list). This library is usable with both `Data.List` and `Data.List.Lazy` (and potentially can be used with any list-like structure with `mempty` value and `append` operation).
 
