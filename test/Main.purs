@@ -63,10 +63,10 @@ main = do
   log "checking fromFoldable"
   assertEq (DC.fromFoldable' [1, 2, 3, 4] :: Difference List Int)
            (DC.fromFoldable' [1, 2, 3, 4])
-  assertEq (DC.toContainer $ DC.fromFoldable' [1, 2, 3, 4] :: Difference L.List Int)
-           (L.fromFoldable                    [1, 2, 3, 4])
-  assertEq (DC.toContainer $ DC.fromFoldable' [] :: Difference L.List Int)
-           (L.fromFoldable                    [])
+  assertEq (DC.toContainer (DC.fromFoldable' [1, 2, 3, 4] :: Difference L.List Int))
+           (L.fromFoldable                   [1, 2, 3, 4])
+  assertEq (DC.toContainer (DC.fromFoldable' [] :: Difference L.List Int))
+           (L.fromFoldable                   [])
   assertEq (DC.toContainer (pure 1 <> pure 2 <> pure 3 <> pure 4))
            (L.fromFoldable [1, 2, 3, 4])
 
@@ -95,12 +95,12 @@ main = do
            (replicate 10 0)
 
   log "checking Foldable instance"
-  assertEq 6 (foldr (\x y -> x + y) 0 $ DC.fromFoldable' [1, 2, 3] :: Difference List Int)
-  assertEq (foldr (\x y -> x - y) 0 $ DC.fromFoldable' [1, 2, 3] :: Difference List Int)
+  assertEq 6 (foldr (\x y -> x + y) 0 (DC.fromFoldable' [1, 2, 3] :: Difference List Int))
+  assertEq (foldr (\x y -> x - y) 0 (DC.fromFoldable' [1, 2, 3] :: Difference List Int))
            (foldr (\x y -> x - y) 0 [1, 2, 3])
-  assertEq (foldl (\x y -> x - y) 0 $ DC.fromFoldable' [1, 2, 3] :: Difference List Int)
+  assertEq (foldl (\x y -> x - y) 0 (DC.fromFoldable' [1, 2, 3] :: Difference List Int))
            (foldl (\x y -> x - y) 0 [1, 2, 3])
-  assertEq (foldMap pure $ DC.fromFoldable' [1,2,3,4] :: Difference List Int)
+  assertEq (foldMap pure (DC.fromFoldable' [1,2,3,4] :: Difference List Int))
            (foldMap pure [1,2,3,4] :: List Int)
 
   log "checking Monad instance"

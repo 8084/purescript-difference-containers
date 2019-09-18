@@ -9,11 +9,10 @@ install:
   - wget -O $HOME/purescript.tar.gz https://github.com/purescript/purescript/releases/download/$TAG/linux64.tar.gz
   - tar -xvf $HOME/purescript.tar.gz -C $HOME/
   - chmod a+x $HOME/purescript
-  - npm install -g bower
-  - npm install
+  - npm install -g bower pulp
   - bower install
 script:
-  - npm test
+  - pulp test
   - RESOLUTIONS=$(mktemp) &&
       bower list --json --offline > $RESOLUTIONS &&
       purs publish --dry-run --manifest bower.json --resolutions $RESOLUTIONS
